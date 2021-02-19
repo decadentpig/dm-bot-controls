@@ -4,9 +4,8 @@
     <title>DM Bot Controller</title>
     <link href='style.css' rel='stylesheet'>
   </head>
-  <body>
+  <body onload='populateTrackList()'>
     <div id='all-controls'>
-      <textarea id='clipboard-textarea'></textarea>
       <div id='top-controls-container'>
         <button href='' onclick='copyText("p!stop"); return false;' id='stop-button'>
             <div id='stop-icon' class='top-icons'></div>
@@ -20,13 +19,16 @@
         <button href='' onclick='copyText("p!skip"); return false;' id='skip-button'>
             <div class='skip-icons top-icons'></div><div class='skip-icons top-icons'></div>
         </button>
-        <br>
         <button href='' onclick='copyText("p!repeat all"); return false;' id='rep-all-button'>ALL</button>
         <button href='' onclick='copyText("p!repeat one"); return false;' id='rep-one-button'>ONE</button>
         <button href='' onclick='copyText("p!repeat off"); return false;' id='rep-off-button'>OFF</button>
-        <br>
       </div>
+      <div id='copier-container'>
+        <button href='' onclick='copyTrack(); return false;' id='copier'>COPY</button>
+      </div>
+      <div id='tracklist-container'></div>
     </div>
+    <textarea id='clipboard-textarea'></textarea>
     <script src='script.js'></script>
   </body>
 </html>

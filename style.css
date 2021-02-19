@@ -1,13 +1,13 @@
-#clipboard-textarea {
-    opacity: .01;
-    height:0;
-    position:absolute;
-    z-index: -1;
-}
 
 button {
     height: 28px;
     width: 40px;
+}
+
+#all-controls {
+    width: 100%;
+    background-color: #797979;
+    padding: 30px;
 }
 
 #top-controls-container {
@@ -19,6 +19,10 @@ button {
     grid-template-columns: repeat(4, 1fr);
     background-color: #e6e6e6;
     border-radius: 20px;
+}
+
+.top-icons {
+    margin: auto;
 }
 
 #stop-button {
@@ -64,6 +68,13 @@ button {
     border-bottom: 6px solid transparent;
 }
 
-.top-icons {
-    margin: auto;
+#repeat-buttons-container {
+    background-color: #797979;
+}
+
+#clipboard-textarea {
+    opacity: .01;
+    height:0;
+    position:absolute;
+    z-index: -1;
 }
