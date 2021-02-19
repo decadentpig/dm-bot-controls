@@ -1,0 +1,69 @@
+#clipboard-textarea {
+    opacity: .01;
+    height:0;
+    position:absolute;
+    z-index: -1;
+}
+
+button {
+    height: 28px;
+    width: 40px;
+}
+
+#top-controls-container {
+    display: grid;
+    grid-gap: 10px;
+    width: 200px;
+    margin: auto;
+    padding: 10px 10px;
+    grid-template-columns: repeat(4, 1fr);
+    background-color: #e6e6e6;
+    border-radius: 20px;
+}
+
+#stop-button {
+    
+}
+#stop-icon {
+    width: 13px;
+    height: 13px;
+    background-color: #797979;
+}
+
+#play-button {
+    
+}
+#play-icon {
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-left: 15px solid #797979;
+    border-bottom: 7px solid transparent;
+}
+
+#pause-button {
+    display: inline-grid;
+    grid-template-columns: 1em 1em;
+}
+.pause-icons {
+    width: 5px;
+    height: 13px;
+    background-color: #797979;
+}
+
+#skip-button {
+    display: inline-grid;
+    grid-template-columns: 1em 1em;
+}
+.skip-icons {
+    display: grid;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-left: 12px solid #797979;
+    border-bottom: 6px solid transparent;
+}
+
+.top-icons {
+    margin: auto;
+}
