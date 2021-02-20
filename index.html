@@ -3,30 +3,39 @@
   <head>
     <title>DM Bot Controller</title>
     <link href='style.css' rel='stylesheet'>
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
   </head>
   <body onload='populateTrackList()'>
     <div id='all-controls'>
       <div id='top-controls-container'>
-        <button href='' onclick='copyText("p!stop"); return false;' id='stop-button'>
+        <button href='' id='stop-button'>
             <div id='stop-icon' class='top-icons'></div>
         </button>
-        <button href='' onclick='copyText("p!resume"); return false;' id='play-button'>
+        <button href='' id='play-button'>
             <div id='play-icon' class='top-icons'></div>
         </button>
-        <button href='' onclick='copyText("p!pause"); return false;' id='pause-button'>
-            <div class='pause-icons top-icons'></div><div class='pause-icons top-icons'></div>
+        <button href='' id='pause-button'>
+            <div class='pause-icons top-icons'></div>
+            <div class='pause-icons top-icons'></div>
         </button>
-        <button href='' onclick='copyText("p!skip"); return false;' id='skip-button'>
-            <div class='skip-icons top-icons'></div><div class='skip-icons top-icons'></div>
+        <button href='' id='skip-button'>
+            <div class='skip-icons top-icons'></div>
+            <div class='skip-icons top-icons'></div>
         </button>
-        <button href='' onclick='copyText("p!repeat all"); return false;' id='rep-all-button'>ALL</button>
-        <button href='' onclick='copyText("p!repeat one"); return false;' id='rep-one-button'>ONE</button>
-        <button href='' onclick='copyText("p!repeat off"); return false;' id='rep-off-button'>OFF</button>
+        <button href='' id='rep-all-button' class='repeat-buttons'>ALL</button>
+        <button href='' id='rep-one-button' class='repeat-buttons'>ONE</button>
+        <button href='' id='rep-off-button' class='repeat-buttons'>OFF</button>
       </div>
       <div id='copier-container'>
-        <button href='' onclick='copyTrack(); return false;' id='copier'>COPY</button>
+        <button href='' id='copier'>COPY</button>
       </div>
       <div id='tracklist-container'></div>
+      <input type='file' id='file-upload'>
+      <label for='file-upload' id='upload-label'>
+        <div id='upload-button'>LOAD</div> 
+      </label>
     </div>
     <textarea id='clipboard-textarea'></textarea>
     <script src='script.js'></script>
