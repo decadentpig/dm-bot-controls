@@ -20,7 +20,7 @@ let trackList = {
 }
 
 function copyText(selection){ 
-    // Copy text from an off-screen text-area to clipboard.
+    // Copy text to clipboard
     document.querySelector('#clipboard-textarea').value = `${selection}`;
     document.querySelector('#clipboard-textarea').select();
     document.execCommand("copy");
@@ -30,7 +30,7 @@ function populateTrackList() {
     const listDiv = document.querySelector('#tracklist-container');
 
     for (let i in trackList){
-        // Create radio buttons
+        // Create radio button
         let listEntry = document.createElement('input');
         listEntry.setAttribute('type', 'radio');
         listEntry.setAttribute('id', `${i}`);
@@ -38,13 +38,13 @@ function populateTrackList() {
         listEntry.setAttribute('value', `${i}`);
         listEntry.setAttribute('name', 'track-list');
       
-        // Create labels
+        // Associated label
         let entryLabel = document.createElement('label');
         entryLabel.setAttribute('for', `${i}`);
         entryLabel.setAttribute('class', 'tracklist-entries');
         entryLabel.innerHTML = `${trackList[i][0]} [${trackList[i][2]}, ${trackList[i][3]}]`;
       
-        // Build list
+        // Append to list
         listDiv.append(listEntry);
         listDiv.append(entryLabel);
         listDiv.append(document.createElement('br'));
@@ -63,6 +63,7 @@ function copyTrack(){
     document.execCommand("copy");
 }
 
+// Find buttons
 const stopButton = document.querySelector('#stop-button');
 const playButton = document.querySelector('#play-button');
 const pauseButton = document.querySelector('#pause-button');
@@ -70,7 +71,9 @@ const skipButton = document.querySelector('#skip-button');
 const repeatAll = document.querySelector('#rep-all-button');
 const repeatOne = document.querySelector('#rep-one-button');
 const repeatOff = document.querySelector('#rep-off-button');
+const copierButton = document.querySelector('#copier');
 
+// Button behaviours
 stopButton.onclick = () => copyText('p!stop');
 playButton.onclick = () => copyText('p!resume');
 pauseButton.onclick = () => copyText('p!pause');
@@ -78,6 +81,4 @@ skipButton.onclick = () => copyText('p!skip');
 repeatAll.onclick = () => copyText('p!repeat all');
 repeatOne.onclick = () => copyText('p!repeat one');
 repeatOff.onclick = () => copyText('p!repeat off');
-
-const copierButton = document.querySelector('#copier');
 copierButton.onclick = () => copyTrack();
