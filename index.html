@@ -32,11 +32,15 @@
         <button href='' id='copier'>COPY</button>
       </div>
       <div id='tracklist-container'></div>
-      <input type='file' id='file-upload'>
-      <label for='file-upload' id='upload-label'>
-        <div id='load-button'>LOAD</div> 
-      </label>
-      <textarea style='opacity: 0;' id='TESTINGFILE'></textarea>
+      <div id='lower-buttons-container'>
+        <input type='file' id='file-upload'>
+        <label for='file-upload' id='upload-label'>
+          <div id='load-button' class='lower-buttons'>LOAD</div> 
+        </label>
+        <button href='' id='' class='lower-buttons'>ADD</button>
+        <button href='' id='' class='lower-buttons'>SAVE</button>
+        <button href='' id='clear-button' class='lower-buttons'>CLEAR</button>
+      </div>
     </div>
     <textarea id='clipboard-textarea'></textarea>
     <script src='script.js'></script>

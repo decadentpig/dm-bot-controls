@@ -1,7 +1,4 @@
-let trackList = {
-    'default': '(NO TRACKS LOADED)'
-};
-
+/** COPYING TO CLIPBOARD **/
 function notifyCopy(){
   const button = document.getElementById('copier');
   button.style.color = 'var(--sub-container-bg)';
@@ -20,8 +17,17 @@ function copyText(selection){
     notifyCopy();
 }
 
+function copyTrack(){
+    let trackID = document.querySelector('input[name="track-list"]:checked').value;
+    let url = trackList[trackID][1];
+    copyText(`p!play https://youtu.be/${url}`);
+}
+
+/** TRACK LIST POPULATE / CLEAR **/
+let trackList = { 'default': '(NO TRACKS LOADED)' };
+const listDiv = document.querySelector('#tracklist-container');
+
 function populateTrackList() {
-    const listDiv = document.querySelector('#tracklist-container');
 
     if (trackList.hasOwnProperty('default')){
         let defaultMessage = document.createElement('p');
@@ -54,26 +60,15 @@ function populateTrackList() {
     }
 }
 
-function copyTrack(){
-    // Determine selection and then fetch trackID
-    let trackID = document.querySelector('input[name="track-list"]:checked').value;
-    let url = trackList[trackID][1];
-    copyText(`p!play https://youtu.be/${url}`);
+function clearTrackList(){
+    listDiv.innerHTML = '';
+    trackList = { 'default': '(NO TRACKS LOADED)' };
+    document.querySelector('#file-upload').value = '';
+    populateTrackList();
 }
 
-// Button behaviours
-document.querySelector('#stop-button').onclick = () => copyText('p!stop');
-document.querySelector('#play-button').onclick = () => copyText('p!resume');
-document.querySelector('#pause-button').onclick = () => copyText('p!pause');
-document.querySelector('#skip-button').onclick = () => copyText('p!skip');
-document.querySelector('#rep-all').onclick = () => copyText('p!repeat all');
-document.querySelector('#rep-one').onclick = () => copyText('p!repeat one');
-document.querySelector('#rep-off').onclick = () => copyText('p!repeat off');
-document.querySelector('#copier').onclick = () => copyTrack();
-
-// Build track list from uploaded file
+/** PARSE USER FILE FOR TRACK LIST **/
 let inputFile = document.querySelector('#file-upload');
-let textarea = document.querySelector('#TESTINGFILE');
 
 inputFile.addEventListener('change', () => {
     let files = inputFile.files;
@@ -85,8 +80,18 @@ inputFile.addEventListener('change', () => {
     let reader = new FileReader();
     reader.readAsText(userFile);
     reader.onload = (e) => {
-        textarea.value = e.target.result;
         trackList = JSON.parse(e.target.result);
         populateTrackList();
     }
 });
+
+/** BUTTON BEHAVIOURS **/
+document.querySelector('#stop-button').onclick = () => copyText('p!stop');
+document.querySelector('#play-button').onclick = () => copyText('p!resume');
+document.querySelector('#pause-button').onclick = () => copyText('p!pause');
+document.querySelector('#skip-button').onclick = () => copyText('p!skip');
+document.querySelector('#rep-all').onclick = () => copyText('p!repeat all');
+document.querySelector('#rep-one').onclick = () => copyText('p!repeat one');
+document.querySelector('#rep-off').onclick = () => copyText('p!repeat off');
+document.querySelector('#copier').onclick = () => copyTrack();
+document.querySelector('#clear-button').onclick = () => clearTrackList();
