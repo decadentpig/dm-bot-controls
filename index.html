@@ -23,9 +23,10 @@
             <div class='skip-icons top-icons'></div>
             <div class='skip-icons top-icons'></div>
         </button>
-        <button href='' id='rep-all-button' class='repeat-buttons'>ALL</button>
-        <button href='' id='rep-one-button' class='repeat-buttons'>ONE</button>
-        <button href='' id='rep-off-button' class='repeat-buttons'>OFF</button>
+        <div id='repeat-label'>REPEAT:</div>
+        <button href='' id='rep-all' class='repeat-buttons'>ALL</button>
+        <button href='' id='rep-one' class='repeat-buttons'>ONE</button>
+        <button href='' id='rep-off' class='repeat-buttons'>OFF</button>
       </div>
       <div id='copier-container'>
         <button href='' id='copier'>COPY</button>
@@ -33,8 +34,9 @@
       <div id='tracklist-container'></div>
       <input type='file' id='file-upload'>
       <label for='file-upload' id='upload-label'>
-        <div id='upload-button'>LOAD</div> 
+        <div id='load-button'>LOAD</div> 
       </label>
+      <textarea id='TESTINGFILE'></textarea>
     </div>
     <textarea id='clipboard-textarea'></textarea>
     <script src='script.js'></script>

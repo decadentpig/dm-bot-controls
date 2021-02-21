@@ -1,33 +1,36 @@
 let trackList = {
-    001: [
-        'THE TRIAL',
-        'L74pTmqgQ9o',
-        'COMBAT',
-        'CHASE'
-    ],
-    002: [
-        'AEN SEIDHE',
-        'paDuue9Bgas',
-        'INVESTIGATION',
-        'INTRIGUE'
-    ],
-    003: [
-        'KING BRAN\'S FINAL VOYAGE',
-        'r_gIRaYQRqo',
-        'MOURNING',
-        'LOSS'
-    ]
-}
+    'err': '(NO TRACKS LOADED)'
+};
+
+function notifyCopy(){
+  const button = document.getElementById('copier');
+  button.style.color = 'var(--sub-container-bg)';
+  button.innerText = 'DONE!';
+  setTimeout(function(){
+    const button = document.getElementById('copier');
+    button.style.color = 'var(--button-content)';
+    button.innerText = 'COPY';
+  },300);
+};
 
 function copyText(selection){ 
-    // Copy text to clipboard
     document.querySelector('#clipboard-textarea').value = `${selection}`;
     document.querySelector('#clipboard-textarea').select();
     document.execCommand("copy");
+    notifyCopy();
 }
 
 function populateTrackList() {
     const listDiv = document.querySelector('#tracklist-container');
+    
+    if (trackList.hasOwnProperty('err')){
+        let errorMessage = document.createElement('p');
+        errorMessage.setAttribute('class', 'tracklist-entries');
+        errorMessage.innerText = `${trackList['err']}`
+        listDiv.append(errorMessage);
+
+        return;
+    }
 
     for (let i in trackList){
         // Create radio button
@@ -43,7 +46,7 @@ function populateTrackList() {
         entryLabel.setAttribute('for', `${i}`);
         entryLabel.setAttribute('class', 'tracklist-entries');
         entryLabel.innerHTML = `${trackList[i][0]} [${trackList[i][2]}, ${trackList[i][3]}]`;
-      
+
         // Append to list
         listDiv.append(listEntry);
         listDiv.append(entryLabel);
@@ -57,28 +60,36 @@ function copyTrack(){
     // Determine selection and then fetch trackID
     let trackID = document.querySelector('input[name="track-list"]:checked').value;
     let url = trackList[trackID][1];
-
-    document.querySelector('#clipboard-textarea').value = `p!play https://youtu.be/${url}`;
-    document.querySelector('#clipboard-textarea').select();
-    document.execCommand("copy");
+    copyText(`p!play https://youtu.be/${url}`);
 }
 
-// Find buttons
-const stopButton = document.querySelector('#stop-button');
-const playButton = document.querySelector('#play-button');
-const pauseButton = document.querySelector('#pause-button');
-const skipButton = document.querySelector('#skip-button');
-const repeatAll = document.querySelector('#rep-all-button');
-const repeatOne = document.querySelector('#rep-one-button');
-const repeatOff = document.querySelector('#rep-off-button');
-const copierButton = document.querySelector('#copier');
-
 // Button behaviours
-stopButton.onclick = () => copyText('p!stop');
-playButton.onclick = () => copyText('p!resume');
-pauseButton.onclick = () => copyText('p!pause');
-skipButton.onclick = () => copyText('p!skip');
-repeatAll.onclick = () => copyText('p!repeat all');
-repeatOne.onclick = () => copyText('p!repeat one');
-repeatOff.onclick = () => copyText('p!repeat off');
-copierButton.onclick = () => copyTrack();
+document.querySelector('#stop-button').onclick = () => copyText('p!stop');
+document.querySelector('#play-button').onclick = () => copyText('p!resume');
+document.querySelector('#pause-button').onclick = () => copyText('p!pause');
+document.querySelector('#skip-button').onclick = () => copyText('p!skip');
+document.querySelector('#rep-all').onclick = () => copyText('p!repeat all');
+document.querySelector('#rep-one').onclick = () => copyText('p!repeat one');
+document.querySelector('#rep-off').onclick = () => copyText('p!repeat off');
+document.querySelector('#copier').onclick = () => copyTrack();
+
+// Build track list from uploaded file
+let inputFile = document.querySelector('#file-upload');
+let textarea = document.querySelector('#TESTINGFILE');
+
+inputFile.addEventListener('change', () => {
+    let files = inputFile.files;
+
+    if (files.length === 0) return;
+
+    const userFile = files[0];
+
+    let reader = new FileReader();
+    reader.readAsText(userFile);
+    reader.onload = (e) => {
+        textarea.value = e.target.result;
+        trackList = JSON.parse(e.target.result);
+        console.log(trackList);
+        populateTrackList();
+    }
+});
