@@ -1,5 +1,5 @@
 let trackList = {
-    'err': '(NO TRACKS LOADED)'
+    'default': '(NO TRACKS LOADED)'
 };
 
 function notifyCopy(){
@@ -22,12 +22,12 @@ function copyText(selection){
 
 function populateTrackList() {
     const listDiv = document.querySelector('#tracklist-container');
-    
-    if (trackList.hasOwnProperty('err')){
-        let errorMessage = document.createElement('p');
-        errorMessage.setAttribute('class', 'tracklist-entries');
-        errorMessage.innerText = `${trackList['err']}`
-        listDiv.append(errorMessage);
+
+    if (trackList.hasOwnProperty('default')){
+        let defaultMessage = document.createElement('p');
+        defaultMessage.setAttribute('class', 'tracklist-entries');
+        defaultMessage.innerText = trackList['default'];
+        listDiv.append(defaultMessage);
 
         return;
     }
@@ -52,8 +52,6 @@ function populateTrackList() {
         listDiv.append(entryLabel);
         listDiv.append(document.createElement('br'));
     }
-  
-    document.getElementById('1').checked = true;
 }
 
 function copyTrack(){
@@ -89,7 +87,6 @@ inputFile.addEventListener('change', () => {
     reader.onload = (e) => {
         textarea.value = e.target.result;
         trackList = JSON.parse(e.target.result);
-        console.log(trackList);
         populateTrackList();
     }
 });
