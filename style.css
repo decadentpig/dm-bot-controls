@@ -133,6 +133,7 @@ button {
     margin: 15px;
 }
 #copier {
+    line-height: 4px;
     background-color: var(--button-bg);
     color: var(--button-content);
     margin: auto;
@@ -170,6 +171,50 @@ input:focus + label {
     text-shadow: 1px 1px 1px var(--main-container-bg);
 }
 
+/** (TOGGLED) ADD TRACK LIST ENTRY FORM **/
+
+#add-form-container {
+    display: none;
+    background-color: var(--sub-container-bg);
+    width: 40%;
+    margin: 15px auto 0 auto;
+    text-align: center;
+    padding: 15px 0 5px 0;
+    border-radius: 10px;  
+}
+input[type='text']{
+    font-size: 15px;
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    color: var(--button-content);
+    background-color: var(--button-bg);
+    text-transform: uppercase;
+}
+input[type='text']::placeholder {
+    opacity: 0.25;
+    color: var(--button-content);
+}
+
+#submit-add-form {
+    font-family: 'Oswald', sans-serif;
+    background-color: var(--button-bg);
+    color: var(--button-content);
+    margin: 15px auto 15px auto;
+    font-size: 15px;
+    width: 80px;
+    height: 30px;
+    text-align: center;
+    line-height: 4px;
+
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    border-width: 2px;
+    border-style: outset;
+    border-color: var(--button-content)
+                  var(--button-content) 
+                  var(--button-content);
+}
+
 
 /** SCREEN-BOTTOM CONTROLS (LOAD, ADD, SAVE, CLEAR **/
 
@@ -184,6 +229,7 @@ input:focus + label {
     display: inherit;
 }
 #load-button {
+    line-height: 30px;
     -webkit-appearance: none;
     box-sizing: border-box;
     border-width: 2px;
@@ -201,8 +247,9 @@ input:focus + label {
     width: 100px;
     height: 35px;
     text-align: center;
+    line-height: 4px;
 }
-.lower-buttons:hover, #load-button:hover {
+.lower-buttons:hover, #load-button:hover, #submit-add-form:hover {
     background-color: var(--main-container-bg);
 }
 

@@ -67,14 +67,47 @@ function clearTrackList(){
     populateTrackList();
 }
 
+function toggleForm(){
+    let toggler = document.getElementById('add-button');
+    let container = document.getElementById('add-form-container');
+    if (toggler.innerText = 'ADD'){
+        toggler.innerText = 'HIDE';
+        container.style.display = 'block';
+    } else if (toggler.innerText = 'HIDE') {
+        toggler.innerText = 'ADD';
+        container.style.display = 'none';
+    }
+}
+
+function createEntry(){
+    const formTitle = document.getElementById('track-title');
+    let formURL = document.getElementById('track-url');
+    const formDesc1 = document.getElementById('track-desc1');
+    const formDesc2 = document.getElementById('track-desc2');
+
+    // Lift out unique YouTube ID
+    formURL = formURL.value.substr(formURL.value.indexOf('=')+1, 11);
+
+    let trackTitle = formTitle.value.toUpperCase();
+    let trackURL = formURL.value;
+    let trackDesc1 = formDesc1.value.toUpperCase();
+    let trackDesc2 = formDesc2.value.toUpperCase();
+
+    let newID = Object.keys(trackList).length+1;
+    if (newID >= 10 && newID < 100) newID = '0' + newID;
+    if (newID < 10) newID = '00' + newID;
+
+    trackList[newID] = [trackTitle, trackURL, trackDesc1, trackDesc2];
+    if (trackList['default']) delete trackList.default;
+    populateTrackList();
+}
+
 /** PARSE USER FILE FOR TRACK LIST **/
 let inputFile = document.querySelector('#file-upload');
 
 inputFile.addEventListener('change', () => {
     let files = inputFile.files;
-
     if (files.length === 0) return;
-
     const userFile = files[0];
 
     let reader = new FileReader();
@@ -95,3 +128,5 @@ document.querySelector('#rep-one').onclick = () => copyText('p!repeat one');
 document.querySelector('#rep-off').onclick = () => copyText('p!repeat off');
 document.querySelector('#copier').onclick = () => copyTrack();
 document.querySelector('#clear-button').onclick = () => clearTrackList();
+document.querySelector('#add-button').onclick = () => toggleForm();
+document.querySelector('#submit-add-form').onclick = () => createEntry();

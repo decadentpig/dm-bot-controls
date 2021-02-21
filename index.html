@@ -32,13 +32,20 @@
         <button href='' id='copier'>COPY</button>
       </div>
       <div id='tracklist-container'></div>
+      <div id='add-form-container'>
+          <input type='text' id='track-title' placeholder='TRACK TITLE' name='title'><br>
+          <input type='text' id='track-url' placeholder='YOUTUBE URL' name='url'><br>
+          <input type='text' id='track-desc1' placeholder='ONE-WORD DESCRIPTOR' name='descriptor1'><br>
+          <input type='text' id='track-desc2' placeholder='ONE-WORD DESCRIPTOR' name='descriptor2'><br>
+          <button href='' id='submit-add-form'>SUBMIT</button>
+      </div>
       <div id='lower-buttons-container'>
-        <input type='file' id='file-upload'>
+        <input type='file' id='file-upload' accept='.txt, .json'>
         <label for='file-upload' id='upload-label'>
           <div id='load-button' class='lower-buttons'>LOAD</div> 
         </label>
-        <button href='' id='' class='lower-buttons'>ADD</button>
-        <button href='' id='' class='lower-buttons'>SAVE</button>
+        <button href='' id='add-button' class='lower-buttons'>ADD</button>
+        <button href='' id='save-button' class='lower-buttons'>SAVE</button>
         <button href='' id='clear-button' class='lower-buttons'>CLEAR</button>
       </div>
     </div>
