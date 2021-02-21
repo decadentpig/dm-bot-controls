@@ -30,7 +30,7 @@ function populateTrackList() {
         listDiv.append(defaultMessage);
 
         return;
-    }
+    } else listDiv.innerText = '';
 
     for (let i in trackList){
         // Create radio button
