@@ -72,7 +72,7 @@ function toggleForm(){
     let container = document.getElementById('add-form-container');
     if (toggler.innerText = 'ADD'){
         toggler.innerText = 'HIDE';
-        container.style.display = 'block';
+        container.style.display = 'grid';
     } else if (toggler.innerText = 'HIDE') {
         toggler.innerText = 'ADD';
         container.style.display = 'none';

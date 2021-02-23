@@ -175,20 +175,32 @@ input:focus + label {
 
 #add-form-container {
     display: none;
+    grid-gap: 5px;
     background-color: var(--sub-container-bg);
     width: 40%;
     margin: 15px auto 0 auto;
     text-align: center;
     padding: 15px 0 5px 0;
-    border-radius: 10px;  
+    border-radius: 10px;
 }
 input[type='text']{
+    width: 80%;
+    margin: auto;
     font-size: 15px;
     font-family: 'Oswald', sans-serif;
     text-align: center;
     color: var(--button-content);
     background-color: var(--button-bg);
     text-transform: uppercase;
+    outline: none;
+
+
+    box-sizing: border-box;
+    border-width: 2px;
+    border-style: outset;
+    border-color: var(--button-content)
+                  var(--button-content) 
+                  var(--button-content);
 }
 input[type='text']::placeholder {
     opacity: 0.25;
