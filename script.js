@@ -60,12 +60,14 @@ function populateTrackList() {
     }
 }
 
-function clearTrackList(){
+function clearAll(){
     listDiv.innerHTML = '';
     trackList = { 'default': '(NO TRACKS LOADED)' };
     document.querySelector('#file-upload').value = '';
     populateTrackList();
 }
+
+function clearForm(){ document.querySelector('form').reset() };
 
 function toggleForm(){
     let toggler = document.getElementById('add-button');
@@ -127,6 +129,6 @@ document.querySelector('#rep-all').onclick = () => copyText('p!repeat all');
 document.querySelector('#rep-one').onclick = () => copyText('p!repeat one');
 document.querySelector('#rep-off').onclick = () => copyText('p!repeat off');
 document.querySelector('#copier').onclick = () => copyTrack();
-document.querySelector('#clear-button').onclick = () => clearTrackList();
+document.querySelector('#clear-button').onclick = () => clearAll();
 document.querySelector('#add-button').onclick = () => toggleForm();
 document.querySelector('#submit-add-form').onclick = () => createEntry();
