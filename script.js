@@ -70,10 +70,10 @@ function clearTrackList(){
 function toggleForm(){
     let toggler = document.getElementById('add-button');
     let container = document.getElementById('add-form-container');
-    if (toggler.innerText = 'ADD'){
+    if (toggler.innerText === 'ADD'){
         toggler.innerText = 'HIDE';
         container.style.display = 'grid';
-    } else if (toggler.innerText = 'HIDE') {
+    } else if (toggler.innerText === 'HIDE') {
         toggler.innerText = 'ADD';
         container.style.display = 'none';
     }
