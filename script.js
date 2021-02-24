@@ -1,4 +1,17 @@
 /** COPYING TO CLIPBOARD **/
+function copyText(selection){ 
+    document.querySelector('#clipboard-textarea').value = `${selection}`;
+    document.querySelector('#clipboard-textarea').select();
+    document.execCommand("copy");
+    notifyCopy();
+};
+
+function copyTrack(){
+    let trackID = document.querySelector('input[name="track-list"]:checked').value;
+    let url = trackList[trackID][1];
+    copyText(`p!play ${url}`);
+};
+
 function notifyCopy(){
   const button = document.getElementById('copier');
   button.style.color = 'var(--sub-container-bg)';
@@ -7,23 +20,11 @@ function notifyCopy(){
     const button = document.getElementById('copier');
     button.style.color = 'var(--button-content)';
     button.innerText = 'COPY';
-  },300);
+  },600);
 };
 
-function copyText(selection){ 
-    document.querySelector('#clipboard-textarea').value = `${selection}`;
-    document.querySelector('#clipboard-textarea').select();
-    document.execCommand("copy");
-    notifyCopy();
-}
 
-function copyTrack(){
-    let trackID = document.querySelector('input[name="track-list"]:checked').value;
-    let url = trackList[trackID][1];
-    copyText(`p!play https://youtu.be/${url}`);
-}
-
-/** TRACK LIST POPULATE / CLEAR **/
+/** TRACK LIST POPULATE/CLEAR **/
 let trackList = { 'default': '(NO TRACKS LOADED)' };
 const listDiv = document.querySelector('#tracklist-container');
 
@@ -57,17 +58,46 @@ function populateTrackList() {
         listDiv.append(listEntry);
         listDiv.append(entryLabel);
         listDiv.append(document.createElement('br'));
-    }
-}
+    };
+};
 
-function clearAll(){
-    listDiv.innerHTML = '';
-    trackList = { 'default': '(NO TRACKS LOADED)' };
-    document.querySelector('#file-upload').value = '';
+
+/** CREATING/CLEARING ENTRIES FROM 'ADD' FORM **/
+function createEntry(){
+    // Grab user inputs for entry into track list object
+    let trackTitle = document.getElementById('track-title').value.toUpperCase();
+    let trackURL = document.getElementById('track-url').value;
+    let trackDesc1 = document.getElementById('track-desc1').value.toUpperCase();
+    let trackDesc2 = document.getElementById('track-desc2').value.toUpperCase();
+  
+    // Check for invalid inputs
+    if (
+      trackTitle.length < 1 ||
+      trackURL.length < 1 ||
+      trackDesc1.length < 1 ||
+      trackDesc2.length < 1
+    ) {
+        throwFormError();
+        return;
+    };
+
+    // Remove placeholder list item & calculate new key names:
+    if (trackList['default']) delete trackList.default;
+    let newID = Object.keys(trackList).length+1;
+    if (newID >= 10 && newID < 100) newID = '0' + newID;
+    if (newID < 10) newID = '00' + newID;
+
+    trackList[newID] = [trackTitle, trackURL, trackDesc1, trackDesc2];
+    clearForm();
     populateTrackList();
-}
+};
 
-function clearForm(){ document.querySelector('form').reset() };
+function clearForm(){
+    document.getElementById('track-title').value = '';
+    document.getElementById('track-url').value = '';
+    document.getElementById('track-desc1').value = '';
+    document.getElementById('track-desc2').value = '';
+};
 
 function toggleForm(){
     let toggler = document.getElementById('add-button');
@@ -76,33 +106,20 @@ function toggleForm(){
         toggler.innerText = 'HIDE';
         container.style.display = 'grid';
     } else if (toggler.innerText === 'HIDE') {
+        clearForm();
         toggler.innerText = 'ADD';
         container.style.display = 'none';
-    }
-}
+    };
+};
 
-function createEntry(){
-    const formTitle = document.getElementById('track-title');
-    let formURL = document.getElementById('track-url');
-    const formDesc1 = document.getElementById('track-desc1');
-    const formDesc2 = document.getElementById('track-desc2');
+function throwFormError(){
+  document.getElementById('error-field').innerText = 'FIELDS MISSING / INCOMPLETE';
+  setTimeout(function(){
+     const errorField = document.getElementById('error-field');
+     errorField.innerText = '';
+  },3000);
+};
 
-    // Lift out unique YouTube ID
-    formURL = formURL.value.substr(formURL.value.indexOf('=')+1, 11);
-
-    let trackTitle = formTitle.value.toUpperCase();
-    let trackURL = formURL.value;
-    let trackDesc1 = formDesc1.value.toUpperCase();
-    let trackDesc2 = formDesc2.value.toUpperCase();
-
-    let newID = Object.keys(trackList).length+1;
-    if (newID >= 10 && newID < 100) newID = '0' + newID;
-    if (newID < 10) newID = '00' + newID;
-
-    trackList[newID] = [trackTitle, trackURL, trackDesc1, trackDesc2];
-    if (trackList['default']) delete trackList.default;
-    populateTrackList();
-}
 
 /** PARSE USER FILE FOR TRACK LIST **/
 let inputFile = document.querySelector('#file-upload');
@@ -117,8 +134,28 @@ inputFile.addEventListener('change', () => {
     reader.onload = (e) => {
         trackList = JSON.parse(e.target.result);
         populateTrackList();
-    }
+    };
 });
+
+
+/** WRITE CURRENT TRACK LIST TO FILE **/
+function writeFile(filename, content){
+    let saveButton = document.getElementById('save-button');
+    saveButton.setAttribute('href', 'data:text/plain;charet=utf-8,' + encodeURIComponent(content));
+    saveButton.setAttribute('download', filename);
+}
+
+
+/** APP COMPLETE RESET **/
+function clearAll(){
+    clearForm();
+  
+    listDiv.innerHTML = '';
+    trackList = { 'default': '(NO TRACKS LOADED)' };
+    document.querySelector('#file-upload').value = '';
+    populateTrackList();
+};
+
 
 /** BUTTON BEHAVIOURS **/
 document.querySelector('#stop-button').onclick = () => copyText('p!stop');
@@ -132,3 +169,4 @@ document.querySelector('#copier').onclick = () => copyTrack();
 document.querySelector('#clear-button').onclick = () => clearAll();
 document.querySelector('#add-button').onclick = () => toggleForm();
 document.querySelector('#submit-add-form').onclick = () => createEntry();
+document.querySelector('#save-button').onclick = () => writeFile('d&d-tracklist.txt', JSON.stringify(trackList));

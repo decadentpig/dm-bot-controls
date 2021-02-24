@@ -9,17 +9,17 @@
   <body onload='populateTrackList()'>
     <div id='all-controls'>
       <div id='top-controls-container'>
-        <button href='' id='stop-button'>
+        <button href='' value='off' id='stop-button'>
             <div id='stop-icon' class='top-icons'></div>
         </button>
-        <button href='' id='play-button'>
+        <button href='' value='off' id='play-button'>
             <div id='play-icon' class='top-icons'></div>
         </button>
-        <button href='' id='pause-button'>
+        <button href='' value='off' id='pause-button'>
             <div class='pause-icons top-icons'></div>
             <div class='pause-icons top-icons'></div>
         </button>
-        <button href='' id='skip-button'>
+        <button href='' value='off' id='skip-button'>
             <div class='skip-icons top-icons'></div>
             <div class='skip-icons top-icons'></div>
         </button>
@@ -37,6 +37,7 @@
             <input type='text' id='track-url' placeholder='YOUTUBE URL' name='url'>
             <input type='text' id='track-desc1' placeholder='ONE-WORD DESCRIPTOR' name='descriptor1'>
             <input type='text' id='track-desc2' placeholder='ONE-WORD DESCRIPTOR' name='descriptor2'>
+            <p id='error-field'></p>
             <button href='' id='submit-add-form'>SUBMIT</button>
       </div>
       <div id='lower-buttons-container'>
@@ -45,7 +46,7 @@
           <div id='load-button' class='lower-buttons'>LOAD</div> 
         </label>
         <button href='' id='add-button' class='lower-buttons'>ADD</button>
-        <button href='' id='save-button' class='lower-buttons'>SAVE</button>
+        <a href='' id='save-button' class='lower-buttons'>SAVE</a>
         <button href='' id='clear-button' class='lower-buttons'>CLEAR</button>
       </div>
     </div>

@@ -155,6 +155,7 @@ button {
 }
 .tracklist-entries {
     display: inline-block;
+    text-transform: uppercase;
     color: var(--list-items);
 }
 
@@ -164,11 +165,8 @@ input[type=radio] {
 label:hover {
     color: var(--main-container-bg);
 }
-label:active {
-    color: var(--main-container-bg);
-}
 input:focus + label {
-    text-shadow: 1px 1px 1px var(--main-container-bg);
+    opacity: 0.5;
 }
 
 /** (TOGGLED) ADD TRACK LIST ENTRY FORM **/
@@ -212,6 +210,10 @@ input[type='text']::placeholder {
     color: var(--button-content);
 }
 
+#error-field {
+  color: red;
+}
+
 #submit-add-form {
     font-family: 'Oswald', sans-serif;
     background-color: var(--button-bg);
@@ -245,8 +247,9 @@ input[type='text']::placeholder {
 #upload-label {
     display: inherit;
 }
-#load-button {
+#load-button, #save-button {
     line-height: 30px;
+    text-decoration: none;
     -webkit-appearance: none;
     box-sizing: border-box;
     border-width: 2px;
@@ -266,7 +269,7 @@ input[type='text']::placeholder {
     text-align: center;
     line-height: 4px;
 }
-.lower-buttons:hover, #load-button:hover, #submit-add-form:hover {
+.lower-buttons:hover, #load-button:hover, #submit-add-form:hover, #save-button:hover {
     background-color: var(--main-container-bg);
 }
 
