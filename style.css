@@ -35,7 +35,7 @@ button {
 
 #all-controls {
     display: grid;
-    width: 40%;
+    width: 400px;
     background-color: var(--main-container-bg);
     border-radius: 10px;
     padding: 30px;
